@@ -8,6 +8,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     name = req.params.get('name')
     zip = req.params.get('zip')
+    state = req.params.get('state')
     if not name:
         try:
             req_body = req.get_json()
@@ -16,6 +17,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         else:
             name = req_body.get('name')
 
+    
     if name:
         return func.HttpResponse(f"Hello {name}!")
     if zip:
@@ -23,6 +25,17 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             return func.HttpResponse("400")
         else: 
             return func.HttpResponse(f"Hello {zip}!")
+
+    if state:
+        if state =='NM':
+            return func.HttpResponse("325")
+        if state =='CA':
+            return func.HttpResponse("467")
+        if state =='TX':
+            return func.HttpResponse("289")        
+        else: 
+            return func.HttpResponse("173")
+
     else:
         return func.HttpResponse(
              "Please pass a name on the query string or in the request body",
